@@ -118,12 +118,23 @@ int main(int argc, char* argv[]) {
                 packet+=tcphdr->offset*4;
 
                 unsigned int a = ntohs(iphdr->t_length)-iphdr->h_length*4-tcphdr->offset*4;
-                printf("%d\n",a);
-                for(int i=0; i<16; i++) //header->length
+                //printf("%d\n",a);
+
+                if( a >= 16 )
                 {
-                    if(i%16==0)
-                        printf("\n");
-                    printf("%02x ",packet[i]);
+                    for(int i=0; i<16; i++) //header->length
+                    {
+                        if(i%16==0)
+                             printf("\n");
+                         printf("%02x ",packet[i]);
+                    }
+                }
+                else                {
+                    for(int i=0; i<a; i++) //header->length
+                    {
+                         printf("%02x ",packet[i]);
+                    }
+                    printf("\n");
                 }
 
                 printf("\n");
